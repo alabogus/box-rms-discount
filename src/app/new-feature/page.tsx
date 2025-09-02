@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { FormField } from "@/components/ui/form-field";
 import { FormSheet } from "@/components/ui/form-sheet";
-import { Sparkles, Plus, Save, Settings, Zap } from "lucide-react";
+import { Sparkles, Plus } from "lucide-react";
 
 export default function NewFeaturePage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -70,60 +70,6 @@ export default function NewFeaturePage() {
             <Plus className="h-4 w-4 mr-2" />
             Add Item
           </Button>
-        </div>
-
-        {/* Development Guide */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Zap className="h-5 w-5 text-yellow-600" />
-                Quick Start
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm text-gray-600">
-                <p>• Modify the page title and description</p>
-                <p>• Add your feature-specific components</p>
-                <p>• Customize the form fields as needed</p>
-                <p>• Update the navigation in sidebar.tsx</p>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Settings className="h-5 w-5 text-blue-600" />
-                Available Components
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm text-gray-600">
-                <p>• FormField & FormSheet for forms</p>
-                <p>• DataTable for data display</p>
-                <p>• Cards, Buttons, Inputs</p>
-                <p>• Toast notifications</p>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Save className="h-5 w-5 text-green-600" />
-                Best Practices
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm text-gray-600">
-                <p>• Use TypeScript for type safety</p>
-                <p>• Follow the existing design patterns</p>
-                <p>• Add proper error handling</p>
-                <p>• Keep components reusable</p>
-              </div>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Main Development Area */}
