@@ -20,7 +20,6 @@ import { useToast } from "@/components/providers/toast-provider";
 import { layout } from "@/lib/design-system";
 import {
   Package,
-  FileText,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -51,12 +50,6 @@ const navigationItems: NavigationItem[] = [
     label: "Components",
     href: "/components",
     icon: Layers,
-  },
-  {
-    id: "starter-page",
-    label: "Starter Page",
-    href: "/starter-page",
-    icon: FileText,
   },
   {
     id: "new-feature",

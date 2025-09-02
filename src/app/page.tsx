@@ -40,7 +40,7 @@ export default function HomePage() {
         </div>
 
         {/* Quick Start Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="border-2 hover:border-orange-200 transition-colors">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -64,26 +64,6 @@ export default function HomePage() {
           <Card className="border-2 hover:border-orange-200 transition-colors">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Package className="h-5 w-5 text-orange-600" />
-                Starter Page
-              </CardTitle>
-              <CardDescription>
-                Template page with common patterns for quick feature development
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/starter-page">
-                <Button variant="outline" className="w-full">
-                  View Template
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          <Card className="border-2 hover:border-orange-200 transition-colors">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-orange-600" />
                 New Feature
               </CardTitle>
@@ -93,7 +73,7 @@ export default function HomePage() {
             </CardHeader>
             <CardContent>
               <Link href="/new-feature">
-                <Button variant="outline" className="w-full">
+                <Button className="w-full text-white" style={{ backgroundColor: '#D8550D' }}>
                   Start Building
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
@@ -159,7 +139,7 @@ export default function HomePage() {
               <div className="p-4 bg-gray-50 rounded-lg">
                 <h4 className="font-semibold mb-2">3. Build Features</h4>
                 <p className="text-sm text-gray-600">
-                  Use the starter page template to quickly build new features
+                  Use the new feature page template to quickly build features
                 </p>
               </div>
             </div>

@@ -24,8 +24,7 @@ A complete Next.js dashboard boilerplate with Shadcn UI, TypeScript, and a compr
 ### 📦 Pre-built Pages
 
 1. **Components Library** (`/components`) - Showcase of all available UI components
-2. **Starter Page** (`/starter-page`) - Template with common patterns for quick feature development
-3. **New Feature** (`/new-feature`) - Development template with guidelines for building new features
+2. **New Feature** (`/new-feature`) - Development template with guidelines for building new features
 
 ## 🏗️ Project Structure
 
@@ -33,7 +32,6 @@ A complete Next.js dashboard boilerplate with Shadcn UI, TypeScript, and a compr
 src/
 ├── app/                    # Next.js 15 App Router
 │   ├── components/         # Component showcase page
-│   ├── starter-page/      # Generic starter template
 │   ├── new-feature/       # Development template
 │   └── page.tsx           # Landing page
 ├── components/
@@ -82,18 +80,12 @@ npm run type-check   # Run TypeScript compiler
 
 ## 🎯 Getting Started with Your First Feature
 
-### Option 1: Use the Starter Page Template
-
-1. Copy `/src/app/starter-page/page.tsx`
-2. Create a new directory `/src/app/your-feature/`
-3. Paste and modify the template
-4. Add navigation link in sidebar
-
-### Option 2: Use the New Feature Development Template
+### Use the New Feature Development Template
 
 1. Visit `/new-feature` page for development guidelines
-2. Follow the quick start guide and best practices
+2. Follow the quick start guide and best practices  
 3. Use the included form and component examples
+4. Copy the page structure for your new features
 
 ## 🛠️ Available Components
 
