@@ -103,7 +103,7 @@ export default function GettingStartedPage() {
         {/* Features Overview */}
         <div className="border border-gray-200 rounded-lg">
           <div className="p-6 border-b border-gray-200">
-            <h3 className="text-lg font-semibold">What's Included</h3>
+            <h3 className="text-lg font-semibold">What&apos;s Included</h3>
             <p className="text-sm text-gray-600 mt-1">
               Everything you need to build modern dashboard applications
             </p>
