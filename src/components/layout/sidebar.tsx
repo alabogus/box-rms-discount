@@ -22,7 +22,6 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-  Layers,
   Bell,
   User,
   LogOut,

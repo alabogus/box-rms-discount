@@ -10,6 +10,9 @@ This guide explains how to use the custom components integrated from your box-da
 ### 2. NavItem Component  
 **Location:** `/src/components/ui/nav-item.tsx`
 
+### 3. PageHeader Component
+**Location:** `/src/components/ui/page-header.tsx`
+
 ---
 
 ## SearchableSelect Component
@@ -468,3 +471,118 @@ const inventoryTabs = [
 - Smooth transitions and animations
 
 The NavItem component perfectly recreates the navigation experience from your box-dashboard project!
+
+---
+
+## PageHeader Component
+
+The PageHeader component provides a consistent, reusable header layout for pages with title, description, and optional action buttons.
+
+### Overview
+
+PageHeader creates a standard page header with title and description on the left, and optional action buttons (like "Test Form") positioned on the right side. This ensures consistent layout patterns across all pages.
+
+### Props Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | - | **Required.** Page title text |
+| `description` | `string` | - | Optional page description/subtitle |
+| `className` | `string` | "" | Additional CSS classes |
+| `children` | `ReactNode` | - | Action buttons or other elements to display on the right |
+
+### Usage Examples
+
+#### Basic Page Header
+```tsx
+import { PageHeader } from "@/components/ui/page-header"
+
+function MyPage() {
+  return (
+    <div>
+      <PageHeader
+        title="Page Title"
+        description="Optional description text"
+      />
+      {/* Page content */}
+    </div>
+  )
+}
+```
+
+#### Page Header with Action Buttons
+```tsx
+import { PageHeader } from "@/components/ui/page-header"
+import { Button } from "@/components/ui/button"
+import { Plus } from "lucide-react"
+
+function ComponentsPage() {
+  return (
+    <div>
+      <PageHeader
+        title="Components"
+        description="Explore pre-built UI components and design patterns"
+      >
+        <Button onClick={() => openForm()}>
+          <Plus className="h-4 w-4 mr-2" />
+          Test Form
+        </Button>
+      </PageHeader>
+      {/* Page content */}
+    </div>
+  )
+}
+```
+
+#### Dynamic Header with Conditional Actions
+```tsx
+function DynamicPage() {
+  const [activeTab, setActiveTab] = useState("overview")
+  
+  const getTabInfo = () => {
+    return activeTab === "components" 
+      ? { title: "Components", description: "Component library" }
+      : { title: "Overview", description: "Project overview" }
+  }
+  
+  const tabInfo = getTabInfo()
+  
+  return (
+    <PageHeader
+      title={tabInfo.title}
+      description={tabInfo.description}
+    >
+      {activeTab === "components" && (
+        <Button>Test Form</Button>
+      )}
+    </PageHeader>
+  )
+}
+```
+
+### Features
+
+#### Consistent Layout
+- Standardized spacing and typography
+- Left-aligned title and description
+- Right-aligned action buttons
+- Responsive design
+
+#### Flexible Actions
+- Support for any React components as children
+- Multiple buttons or elements can be added
+- Automatic spacing between multiple actions
+
+#### Accessibility
+- Proper heading hierarchy with h1 tags
+- Semantic HTML structure
+- Focus management for interactive elements
+
+### Design Specifications
+
+- **Title**: `text-3xl font-bold text-gray-900`
+- **Description**: `text-gray-600 mt-1`
+- **Layout**: Flexbox with `justify-between`
+- **Action spacing**: `gap-3` between multiple actions
+
+The PageHeader component ensures consistent page layouts and reduces code duplication across the application!

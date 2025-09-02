@@ -84,7 +84,7 @@ export function NavTabs({
 }: NavTabsProps) {
   return (
     <div className={cn("border-b border-gray-200", className)}>
-      <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+      <nav className="-mb-px flex" aria-label="Tabs">
         {items.map((item) => (
           <NavItem
             key={item.id}
