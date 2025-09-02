@@ -12,7 +12,7 @@ interface ToastProps {
   onClose: () => void;
 }
 
-export function Toast({ id, title, description, type = 'default', onClose }: ToastProps) {
+export function Toast({ title, description, type = 'default', onClose }: ToastProps) {
   const typeStyles = {
     default: "bg-white border-gray-200",
     success: "bg-green-50 border-green-200",

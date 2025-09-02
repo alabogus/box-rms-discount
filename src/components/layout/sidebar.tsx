@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/providers/toast-provider";
-import { colors, typography, layout } from "@/lib/design-system";
+import { layout } from "@/lib/design-system";
 import {
   Home,
   Package,
@@ -31,7 +31,6 @@ import {
   Bell,
   User,
   LogOut,
-  HelpCircle,
 } from "lucide-react";
 
 interface SidebarProps {

@@ -11,7 +11,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-import { patterns, colors } from "@/lib/design-system";
+import { patterns } from "@/lib/design-system";
 
 interface FormSheetProps {
   open: boolean;

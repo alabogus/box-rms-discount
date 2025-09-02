@@ -28,8 +28,6 @@ import { formatCurrency } from "@/lib/utils";
 import {
   Package,
   Users,
-  TrendingUp,
-  DollarSign,
   Edit,
   Trash2,
   Plus,
@@ -76,7 +74,7 @@ export default function ComponentsPage() {
     {
       key: 'name' as keyof typeof sampleTableData[0],
       label: 'Component',
-      render: (value: any, row: typeof sampleTableData[0]) => (
+      render: (value: unknown, row: typeof sampleTableData[0]) => (
         <div className="flex items-center gap-3">
           <div className="h-8 w-8 bg-orange-100 rounded-lg flex items-center justify-center">
             <Layers className="h-4 w-4 text-orange-600" />
@@ -95,7 +93,7 @@ export default function ComponentsPage() {
     {
       key: 'status' as keyof typeof sampleTableData[0],
       label: 'Status',
-      render: (value: any) => <StatusBadge status={value} />,
+      render: (value: unknown) => <StatusBadge status={value as string} />,
     },
   ];
 

@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { patterns, spacing } from "@/lib/design-system";
+import { patterns } from "@/lib/design-system";
 
 interface FormFieldProps {
   id: string;

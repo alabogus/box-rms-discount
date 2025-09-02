@@ -100,7 +100,7 @@ export interface FormField {
   };
 }
 
-export interface FormState<T = any> {
+export interface FormState<T = Record<string, unknown>> {
   data: T;
   errors: Record<string, string>;
   isSubmitting: boolean;
@@ -122,7 +122,7 @@ export interface DashboardWidget {
   id: string;
   title: string;
   type: 'metric' | 'chart' | 'list' | 'table';
-  data: any;
+  data: Record<string, unknown>;
   size: 'sm' | 'md' | 'lg' | 'xl';
   refreshInterval?: number;
 }
@@ -142,7 +142,7 @@ export interface MetricWidget extends DashboardWidget {
 }
 
 // API Response types
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;
@@ -164,7 +164,7 @@ export interface AuditLog extends BaseEntity {
   action: string;
   entityType: string;
   entityId: string;
-  changes?: Record<string, { from: any; to: any }>;
+  changes?: Record<string, { from: unknown; to: unknown }>;
   ipAddress?: string;
   userAgent?: string;
 }
@@ -213,7 +213,7 @@ export interface DataTableProps<T> extends BaseComponentProps {
     key: keyof T;
     label: string;
     sortable?: boolean;
-    render?: (value: any, row: T) => React.ReactNode;
+    render?: (value: unknown, row: T) => React.ReactNode;
   }[];
   onSort?: (column: string, direction: 'asc' | 'desc') => void;
   onRowClick?: (row: T) => void;

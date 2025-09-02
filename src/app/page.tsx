@@ -11,9 +11,9 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { DataTable } from "@/components/ui/data-table";
 import { MetricCard } from "@/components/ui/metric-card";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { StockItem } from "@/types";
 import {
   Package,
@@ -72,7 +72,7 @@ const sampleStockItems: StockItem[] = [
 ];
 
 export default function Dashboard() {
-  const [stockItems, setStockItems] = useLocalStorage<StockItem[]>('stockItems', sampleStockItems);
+  const [stockItems] = useLocalStorage<StockItem[]>('stockItems', sampleStockItems);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [formData, setFormData] = useState({
@@ -89,7 +89,7 @@ export default function Dashboard() {
     {
       key: 'name' as keyof StockItem,
       label: 'Item',
-      render: (value: any, row: StockItem) => (
+      render: (value: unknown, row: StockItem) => (
         <div className="flex items-center gap-3">
           <Avatar className="h-8 w-8">
             <AvatarFallback>{row.name.charAt(0)}</AvatarFallback>
@@ -108,17 +108,17 @@ export default function Dashboard() {
     {
       key: 'quantity' as keyof StockItem,
       label: 'Quantity',
-      render: (value: any, row: StockItem) => `${value} ${row.unit}`,
+      render: (value: unknown, row: StockItem) => `${value} ${row.unit}`,
     },
     {
       key: 'price' as keyof StockItem,
       label: 'Price',
-      render: (value: any) => formatCurrency(value),
+      render: (value: unknown) => formatCurrency(value as number),
     },
     {
       key: 'status' as keyof StockItem,
       label: 'Status',
-      render: (value: any) => <StatusBadge status={value} />,
+      render: (value: unknown) => <StatusBadge status={value as string} />,
     },
   ];
 
@@ -213,7 +213,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Inventory Items</CardTitle>
-                <CardDescription>Manage your restaurant's stock items</CardDescription>
+                <CardDescription>Manage your restaurant&apos;s stock items</CardDescription>
               </div>
               <div className="flex items-center gap-4">
                 <SearchInput
@@ -272,7 +272,7 @@ export default function Dashboard() {
               {/* Form Patterns Demo */}
               <div>
                 <h3 className="text-lg font-semibold mb-4">Form Components</h3>
-                <p className="text-gray-600 mb-4">Click "Add Item" to see the slide-out form pattern from your box-dashboard.</p>
+                <p className="text-gray-600 mb-4">Click &quot;Add Item&quot; to see the slide-out form pattern from your box-dashboard.</p>
               </div>
             </div>
           </CardContent>
