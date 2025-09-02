@@ -1,0 +1,18 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="180" height="180" rx="40" fill="#D8550D"/>
+  
+  <!-- Box container -->
+  <rect x="30" y="45" width="120" height="90" rx="8" fill="#FFFFFF" stroke="#A8420A" stroke-width="3"/>
+  
+  <!-- Box lid/opening -->
+  <rect x="40" y="30" width="100" height="20" rx="5" fill="#F97316" stroke="#A8420A" stroke-width="3"/>
+  
+  <!-- Box details -->
+  <rect x="50" y="65" width="80" height="8" rx="4" fill="#D8550D"/>
+  <rect x="50" y="85" width="60" height="8" rx="4" fill="#D8550D"/>
+  <rect x="50" y="105" width="40" height="8" rx="4" fill="#D8550D"/>
+  
+  <!-- Highlight for 3D effect -->
+  <rect x="35" y="50" width="110" height="4" fill="#F97316"/>
+</svg>
