@@ -19,11 +19,8 @@ import {
 import { useToast } from "@/components/providers/toast-provider";
 import { layout } from "@/lib/design-system";
 import {
-  Home,
   Package,
-  Users,
   FileText,
-  BarChart3,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -50,43 +47,22 @@ interface NavigationItem {
 
 const navigationItems: NavigationItem[] = [
   {
-    id: "dashboard",
-    label: "Dashboard",
-    href: "/",
-    icon: Home,
-  },
-  {
-    id: "inventory",
-    label: "Inventory",
-    href: "/inventory",
-    icon: Package,
-  },
-  {
     id: "components",
     label: "Components",
     href: "/components",
     icon: Layers,
   },
   {
-    id: "suppliers",
-    label: "Suppliers",
-    href: "/suppliers",
-    icon: Users,
-    disabled: true,
-  },
-  {
-    id: "transactions",
-    label: "Transactions",
-    href: "/transactions",
+    id: "starter-page",
+    label: "Starter Page",
+    href: "/starter-page",
     icon: FileText,
-    disabled: true,
   },
   {
-    id: "reports",
-    label: "Reports",
-    href: "/reports",
-    icon: BarChart3,
-    disabled: true,
+    id: "new-feature",
+    label: "New Feature",
+    href: "/new-feature",
+    icon: Package,
   },
 ];
 
