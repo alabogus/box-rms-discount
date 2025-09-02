@@ -19,7 +19,6 @@ import {
 import { useToast } from "@/components/providers/toast-provider";
 import { layout } from "@/lib/design-system";
 import {
-  Package,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -27,6 +26,16 @@ import {
   Bell,
   User,
   LogOut,
+  BookOpen,
+  Sparkles,
+  Home,
+  FileText,
+  Package2,
+  Grid3X3,
+  Users,
+  Clock,
+  TrendingUp,
+  Activity,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -46,16 +55,81 @@ interface NavigationItem {
 
 const navigationItems: NavigationItem[] = [
   {
+    id: "home",
+    label: "Home",
+    href: "/home",
+    icon: Home,
+    disabled: true,
+  },
+  {
     id: "components",
     label: "Components",
     href: "/components",
     icon: Layers,
+    badge: "NEW",
   },
   {
     id: "new-feature",
     label: "New Feature",
-    href: "/new-feature",
-    icon: Package,
+    href: "/",
+    icon: Sparkles,
+    badge: "NEW",
+  },
+  {
+    id: "menu-manager",
+    label: "Menu manager",
+    href: "/menu-manager",
+    icon: FileText,
+    disabled: true,
+  },
+  {
+    id: "inventory",
+    label: "Inventory",
+    href: "/inventory",
+    icon: Package2,
+    disabled: true,
+  },
+  {
+    id: "areas-tables",
+    label: "Areas and Tables",
+    href: "/areas-tables",
+    icon: Grid3X3,
+    disabled: true,
+  },
+  {
+    id: "members",
+    label: "Members",
+    href: "/members",
+    icon: Users,
+    disabled: true,
+  },
+  {
+    id: "order-history",
+    label: "Order history",
+    href: "/order-history",
+    icon: Clock,
+    disabled: true,
+  },
+  {
+    id: "sales",
+    label: "Sales",
+    href: "/sales",
+    icon: TrendingUp,
+    disabled: true,
+  },
+  {
+    id: "activity",
+    label: "Activity",
+    href: "/activity",
+    icon: Activity,
+    disabled: true,
+  },
+  {
+    id: "getting-started",
+    label: "Getting Started",
+    href: "/getting-started",
+    icon: BookOpen,
+    badge: "NEW",
   },
 ];
 
@@ -80,7 +154,7 @@ export function Sidebar({ collapsed = false, onToggle, className }: SidebarProps
       )}
     >
       {/* Header */}
-      <div className="p-6 flex items-center justify-between">
+      <div className="px-6 py-4 flex items-center justify-between">
         {!collapsed && (
           <div className="flex items-center">
             <Image
@@ -133,7 +207,7 @@ export function Sidebar({ collapsed = false, onToggle, className }: SidebarProps
                     <>
                       <span className="flex-1 text-left">{item.label}</span>
                       {item.badge && (
-                        <span className="bg-orange-100 text-orange-800 text-xs px-2 py-0.5 rounded-full">
+                        <span className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0.5 rounded font-medium">
                           {item.badge}
                         </span>
                       )}
@@ -159,7 +233,7 @@ export function Sidebar({ collapsed = false, onToggle, className }: SidebarProps
                   <>
                     <span className="flex-1 text-left">{item.label}</span>
                     {item.badge && (
-                      <span className="bg-orange-100 text-orange-800 text-xs px-2 py-0.5 rounded-full">
+                      <span className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0.5 rounded font-medium">
                         {item.badge}
                       </span>
                     )}

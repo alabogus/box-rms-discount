@@ -1,150 +1,123 @@
 "use client";
 
+import { useState } from "react";
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Package, Layers, Sparkles, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { FormField } from "@/components/ui/form-field";
+import { FormSheet } from "@/components/ui/form-sheet";
+import { Sparkles, Plus } from "lucide-react";
 
 export default function HomePage() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    category: "",
+  });
+
+  const handleFormSubmit = () => {
+    console.log('Form submitted:', formData);
+    setIsFormOpen(false);
+    setFormData({ name: "", description: "", category: "" });
+  };
+
+  const formFields = [
+    {
+      id: "name",
+      label: "Feature Name",
+      type: "text" as const,
+      placeholder: "Enter feature name...",
+      required: true,
+    },
+    {
+      id: "description", 
+      label: "Description",
+      type: "textarea" as const,
+      placeholder: "Describe your feature...",
+    },
+    {
+      id: "category",
+      label: "Category",
+      type: "select" as const,
+      placeholder: "Select category",
+      options: [
+        { value: "ui", label: "UI Component" },
+        { value: "feature", label: "Feature Module" },
+        { value: "integration", label: "Integration" },
+        { value: "utility", label: "Utility" },
+      ],
+    },
+  ];
+
   return (
     <Layout>
       <div className="space-y-8">
-        {/* Welcome Header */}
-        <div className="text-center space-y-4">
-          <div className="flex items-center justify-center mb-4">
-            <div className="h-16 w-16 bg-orange-100 rounded-2xl flex items-center justify-center">
-              <Package className="h-8 w-8 text-orange-600" />
-            </div>
+        {/* Page Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">
+              New Feature
+            </h1>
+            <p className="text-gray-600 mt-1">Start building your next feature with this template</p>
           </div>
-          <h1 className="text-4xl font-bold text-gray-900">Box Dashboard Boilerplate</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            A complete Next.js dashboard boilerplate with Shadcn UI, TypeScript, and 
-            a comprehensive design system ready for your next project.
-          </p>
-          <div className="flex items-center justify-center gap-4 mt-6">
-            <Badge variant="outline" className="px-3 py-1">
-              Next.js 15
-            </Badge>
-            <Badge variant="outline" className="px-3 py-1">
-              TypeScript
-            </Badge>
-            <Badge variant="outline" className="px-3 py-1">
-              Tailwind CSS
-            </Badge>
-            <Badge variant="outline" className="px-3 py-1">
-              Shadcn UI
-            </Badge>
+          <Button 
+            onClick={() => setIsFormOpen(true)}
+            className="text-white"
+            style={{ backgroundColor: '#D8550D' }}
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Add Item
+          </Button>
+        </div>
+
+        {/* Main Development Area */}
+        <div className="border border-gray-200 rounded-lg">
+          <div className="p-6 border-b border-gray-200">
+            <h3 className="text-lg font-semibold">Feature Development Area</h3>
+            <p className="text-sm text-gray-600 mt-1">
+              Replace this section with your feature implementation. This template provides
+              the basic structure with layout, forms, and styling already configured.
+            </p>
+          </div>
+          <div className="p-6">
+            <div className="text-center py-12">
+              <Sparkles className="h-16 w-16 text-orange-600 mx-auto mb-6" />
+              <h3 className="text-xl font-semibold mb-3">Ready to Build!</h3>
+              <p className="text-gray-600 max-w-lg mx-auto mb-6">
+                This page template includes all the essentials: layout structure, form handling,
+                state management, and consistent styling. Start building your feature here.
+              </p>
+              <Button 
+                variant="outline"
+                onClick={() => setIsFormOpen(true)}
+              >
+                Test Form
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* Quick Start Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="border-2 hover:border-orange-200 transition-colors">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Layers className="h-5 w-5 text-orange-600" />
-                Components Library
-              </CardTitle>
-              <CardDescription>
-                Explore the pre-built UI components and design patterns
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/components">
-                <Button className="w-full text-white" style={{ backgroundColor: '#D8550D' }}>
-                  View Components
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          <Card className="border-2 hover:border-orange-200 transition-colors">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-orange-600" />
-                New Feature
-              </CardTitle>
-              <CardDescription>
-                Development template with guidelines for building new features
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/new-feature">
-                <Button className="w-full text-white" style={{ backgroundColor: '#D8550D' }}>
-                  Start Building
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Features Overview */}
-        <Card>
-          <CardHeader>
-            <CardTitle>What&apos;s Included</CardTitle>
-            <CardDescription>
-              Everything you need to build modern dashboard applications
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900">🎨 Design System</h4>
-                <ul className="space-y-2 text-sm text-gray-600">
-                  <li>• Complete Shadcn UI component library</li>
-                  <li>• Consistent color palette and typography</li>
-                  <li>• Responsive layout patterns</li>
-                  <li>• Dark/light mode ready</li>
-                </ul>
-              </div>
-              <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900">⚡ Developer Experience</h4>
-                <ul className="space-y-2 text-sm text-gray-600">
-                  <li>• TypeScript for type safety</li>
-                  <li>• ESLint and Prettier configured</li>
-                  <li>• Hot reload and fast refresh</li>
-                  <li>• Ready for deployment</li>
-                </ul>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Getting Started */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Getting Started</CardTitle>
-            <CardDescription>
-              Quick steps to customize this boilerplate for your project
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <h4 className="font-semibold mb-2">1. Clone & Install</h4>
-                <code className="text-sm bg-white px-2 py-1 rounded border">
-                  npm install && npm run dev
-                </code>
-              </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <h4 className="font-semibold mb-2">2. Customize</h4>
-                <p className="text-sm text-gray-600">
-                  Update colors, fonts, and components in the design system files
-                </p>
-              </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <h4 className="font-semibold mb-2">3. Build Features</h4>
-                <p className="text-sm text-gray-600">
-                  Use the new feature page template to quickly build features
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Sample Form Implementation */}
+        <FormSheet
+          open={isFormOpen}
+          onOpenChange={setIsFormOpen}
+          title="Sample Form"
+          description="This demonstrates the form pattern you can use in your features"
+          onSubmit={handleFormSubmit}
+        >
+          <div className="space-y-6">
+            {formFields.map((field) => (
+              <FormField
+                key={field.id}
+                {...field}
+                value={formData[field.id as keyof typeof formData]}
+                onChange={(value) =>
+                  setFormData((prev) => ({ ...prev, [field.id]: value }))
+                }
+              />
+            ))}
+          </div>
+        </FormSheet>
       </div>
     </Layout>
   );
