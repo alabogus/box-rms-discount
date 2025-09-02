@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { FormField } from "@/components/ui/form-field";
 import { FormSheet } from "@/components/ui/form-sheet";
 import { SearchInput } from "@/components/ui/search-input";
+import { SearchableSelect, SearchableSelectOption } from "@/components/ui/searchable-select";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { DataTable } from "@/components/ui/data-table";
 import { MetricCard } from "@/components/ui/metric-card";
@@ -39,11 +40,30 @@ export default function ComponentsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [textareaValue, setTextareaValue] = useState("");
+  const [searchableSelectValue, setSearchableSelectValue] = useState("");
+  const [searchableSelectWithCreateValue, setSearchableSelectWithCreateValue] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     category: "",
   });
+
+  // Sample data for SearchableSelect
+  const searchableOptions: SearchableSelectOption[] = [
+    { id: 1, label: "React", description: "A JavaScript library for building user interfaces" },
+    { id: 2, label: "Vue.js", description: "The Progressive JavaScript Framework" },
+    { id: 3, label: "Angular", description: "Platform for building mobile and desktop web applications" },
+    { id: 4, label: "Next.js", description: "The React Framework for Production" },
+    { id: 5, label: "Nuxt.js", description: "The Intuitive Vue Framework" },
+    { id: 6, label: "Svelte", description: "Cybernetically enhanced web apps" },
+    { id: 7, label: "TypeScript", description: "Typed JavaScript at Any Scale" },
+    { id: 8, label: "JavaScript", description: "The programming language of the web" },
+  ];
+
+  const handleCreateNew = () => {
+    console.log('Create new option clicked');
+    // In a real app, you'd open a form to create a new option
+  };
 
   // Sample data for components demonstration
   const sampleTableData = [
@@ -251,6 +271,80 @@ export default function ComponentsPage() {
                   ]}
                 />
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* SearchableSelect Demo */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Searchable Select Components</CardTitle>
+            <CardDescription>Custom searchable dropdown with keyboard navigation and create option</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <h4 className="font-medium text-sm text-gray-700">Basic Searchable Select</h4>
+                <SearchableSelect
+                  value={searchableSelectValue}
+                  onChange={setSearchableSelectValue}
+                  placeholder="Search and select framework..."
+                  options={searchableOptions}
+                  className="w-full"
+                />
+              </div>
+              
+              <div className="space-y-4">
+                <h4 className="font-medium text-sm text-gray-700">With Create New Option</h4>
+                <SearchableSelect
+                  value={searchableSelectWithCreateValue}
+                  onChange={setSearchableSelectWithCreateValue}
+                  placeholder="Search or create new..."
+                  options={searchableOptions}
+                  showCreateButton={true}
+                  createNewLabel="Create new framework"
+                  onCreateNew={handleCreateNew}
+                  className="w-full"
+                />
+              </div>
+              
+              <div className="space-y-4">
+                <h4 className="font-medium text-sm text-gray-700">Small Size Variant</h4>
+                <SearchableSelect
+                  value={searchableSelectValue}
+                  onChange={setSearchableSelectValue}
+                  placeholder="Small size..."
+                  options={searchableOptions.slice(0, 4)}
+                  size="sm"
+                  showDescriptions={false}
+                  className="w-full"
+                />
+              </div>
+              
+              <div className="space-y-4">
+                <h4 className="font-medium text-sm text-gray-700">Disabled State</h4>
+                <SearchableSelect
+                  value="React"
+                  onChange={() => {}}
+                  placeholder="Disabled..."
+                  options={searchableOptions}
+                  disabled={true}
+                  className="w-full"
+                />
+              </div>
+            </div>
+            
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+              <h4 className="font-medium text-sm text-gray-700 mb-2">Features:</h4>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Type to search through options</li>
+                <li>• Keyboard navigation (Arrow keys, Enter, Escape)</li>
+                <li>• Optional "Create New" functionality</li>
+                <li>• Global dropdown management (only one open at a time)</li>
+                <li>• Customizable styling and sizes</li>
+                <li>• Show/hide descriptions</li>
+                <li>• Focus management and accessibility</li>
+              </ul>
             </div>
           </CardContent>
         </Card>
