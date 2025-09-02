@@ -8,6 +8,7 @@ import { FormField } from "@/components/ui/form-field";
 import { FormSheet } from "@/components/ui/form-sheet";
 import { SearchInput } from "@/components/ui/search-input";
 import { SearchableSelect, SearchableSelectOption } from "@/components/ui/searchable-select";
+import { NavItem, NavTabs } from "@/components/ui/nav-item";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { DataTable } from "@/components/ui/data-table";
 import { MetricCard } from "@/components/ui/metric-card";
@@ -42,11 +43,22 @@ export default function ComponentsPage() {
   const [textareaValue, setTextareaValue] = useState("");
   const [searchableSelectValue, setSearchableSelectValue] = useState("");
   const [searchableSelectWithCreateValue, setSearchableSelectWithCreateValue] = useState("");
+  const [activeNavTab, setActiveNavTab] = useState("tab1");
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     category: "",
   });
+
+  // Sample data for NavTabs
+  const navTabItems = [
+    { id: "tab1", label: "Stock item" },
+    { id: "tab2", label: "Stock Movements" },
+    { id: "tab3", label: "Suppliers" },
+    { id: "tab4", label: "Measuring unit" },
+    { id: "tab5", label: "Stock group" },
+    { id: "tab6", label: "Settings", disabled: true },
+  ];
 
   // Sample data for SearchableSelect
   const searchableOptions: SearchableSelectOption[] = [
@@ -344,6 +356,49 @@ export default function ComponentsPage() {
                 <li>• Customizable styling and sizes</li>
                 <li>• Show/hide descriptions</li>
                 <li>• Focus management and accessibility</li>
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* NavItem Demo */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Navigation Tab Components</CardTitle>
+            <CardDescription>Horizontal navigation tabs with orange active state from box-dashboard</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h4 className="font-medium text-sm text-gray-700">Individual NavItem Components</h4>
+                <div className="flex space-x-8 border-b border-gray-200 -mb-px">
+                  <NavItem label="Active Tab" isActive={true} />
+                  <NavItem label="Inactive Tab" isActive={false} />
+                  <NavItem label="Disabled Tab" disabled={true} />
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <h4 className="font-medium text-sm text-gray-700">Complete NavTabs Component</h4>
+                <NavTabs
+                  items={navTabItems}
+                  activeTab={activeNavTab}
+                  onTabChange={setActiveNavTab}
+                />
+                <p className="text-sm text-gray-500">Active tab: {navTabItems.find(item => item.id === activeNavTab)?.label}</p>
+              </div>
+            </div>
+            
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+              <h4 className="font-medium text-sm text-gray-700 mb-2">Features:</h4>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Orange active state matching box-dashboard design</li>
+                <li>• Clean horizontal tab navigation</li>
+                <li>• Hover and focus states</li>
+                <li>• Disabled state support</li>
+                <li>• Individual NavItem or complete NavTabs wrapper</li>
+                <li>• TypeScript support with proper types</li>
+                <li>• Responsive and accessible design</li>
               </ul>
             </div>
           </CardContent>

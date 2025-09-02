@@ -1,10 +1,20 @@
-# Searchable Select Component Guide
+# Component Library Guide
 
-This guide explains how to use the custom SearchableSelect component that was integrated from your box-dashboard project.
+This guide explains how to use the custom components integrated from your box-dashboard project.
 
-## Overview
+## Components Available
 
-The SearchableSelect component is a powerful, searchable dropdown with keyboard navigation, global dropdown management, and optional "create new" functionality. It's designed to replace standard select inputs where users need to search through many options.
+### 1. SearchableSelect Component
+**Location:** `/src/components/ui/searchable-select.tsx`
+
+### 2. NavItem Component  
+**Location:** `/src/components/ui/nav-item.tsx`
+
+---
+
+## SearchableSelect Component
+
+A powerful, searchable dropdown with keyboard navigation, global dropdown management, and optional "create new" functionality.
 
 ## Components Available
 
@@ -253,3 +263,208 @@ This implementation maintains all the core functionality from your original `Sel
 - Touch-friendly on mobile devices
 
 This component is now ready to use throughout your application as a powerful alternative to standard select inputs!
+
+---
+
+## NavItem Component
+
+The NavItem component provides horizontal navigation tabs with the signature orange active state from your box-dashboard design.
+
+### Overview
+
+NavItem creates clean, accessible navigation tabs perfect for switching between different views or sections. It matches the exact styling from your box-dashboard project.
+
+### Components Available
+
+#### 1. NavItem (Individual Tab)
+```tsx
+<NavItem 
+  label="Tab Name" 
+  isActive={true} 
+  onClick={() => setActiveTab('tab1')} 
+/>
+```
+
+#### 2. NavTabs (Complete Navigation)
+```tsx
+<NavTabs
+  items={[
+    { id: "tab1", label: "Stock item" },
+    { id: "tab2", label: "Stock Movements" },
+    { id: "tab3", label: "Suppliers" }
+  ]}
+  activeTab={activeTab}
+  onTabChange={setActiveTab}
+/>
+```
+
+### Props Reference
+
+#### NavItem Props
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | - | **Required.** Tab label text |
+| `isActive` | `boolean` | `false` | Whether tab is currently active |
+| `onClick` | `() => void` | - | Click handler function |
+| `className` | `string` | "" | Additional CSS classes |
+| `disabled` | `boolean` | `false` | Whether tab is disabled |
+
+#### NavTabs Props
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `Array<{id: string, label: string, disabled?: boolean}>` | - | **Required.** Array of tab items |
+| `activeTab` | `string` | - | **Required.** Currently active tab ID |
+| `onTabChange` | `(tabId: string) => void` | - | **Required.** Tab change handler |
+| `className` | `string` | "" | Additional CSS classes |
+
+### Usage Examples
+
+#### Basic Navigation Tabs
+```tsx
+import { NavTabs } from "@/components/ui/nav-item"
+
+function MyComponent() {
+  const [activeTab, setActiveTab] = useState("overview")
+  
+  const tabs = [
+    { id: "overview", label: "Overview" },
+    { id: "details", label: "Details" },
+    { id: "settings", label: "Settings" }
+  ]
+  
+  return (
+    <div>
+      <NavTabs
+        items={tabs}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
+      
+      {/* Tab content */}
+      {activeTab === "overview" && <OverviewContent />}
+      {activeTab === "details" && <DetailsContent />}
+      {activeTab === "settings" && <SettingsContent />}
+    </div>
+  )
+}
+```
+
+#### Individual NavItem Usage
+```tsx
+import { NavItem } from "@/components/ui/nav-item"
+
+function CustomNavigation() {
+  const [currentSection, setCurrentSection] = useState("home")
+  
+  return (
+    <div className="border-b border-gray-200">
+      <nav className="-mb-px flex space-x-8">
+        <NavItem
+          label="Home"
+          isActive={currentSection === "home"}
+          onClick={() => setCurrentSection("home")}
+        />
+        <NavItem
+          label="Products"
+          isActive={currentSection === "products"}
+          onClick={() => setCurrentSection("products")}
+        />
+        <NavItem
+          label="Coming Soon"
+          disabled={true}
+        />
+      </nav>
+    </div>
+  )
+}
+```
+
+#### Box-Dashboard Style Navigation
+```tsx
+// Recreate the exact navigation from box-dashboard
+const inventoryTabs = [
+  { id: "stock-item", label: "Stock item" },
+  { id: "stock-movements", label: "Stock Movements" },
+  { id: "suppliers", label: "Suppliers" },
+  { id: "measuring-unit", label: "Measuring unit" },
+  { id: "stock-group", label: "Stock group" },
+  { id: "settings", label: "Settings" }
+]
+
+<NavTabs
+  items={inventoryTabs}
+  activeTab={activeInventoryTab}
+  onTabChange={setActiveInventoryTab}
+/>
+```
+
+### Styling Features
+
+#### Orange Active State
+- **Active tab**: Orange text (`text-orange-600`) with orange bottom border (`border-b-orange-500`)
+- **Inactive tabs**: Gray text (`text-gray-500`) with transparent border
+- **Hover states**: Smooth color transitions
+
+#### Accessibility
+- Proper button semantics
+- Keyboard navigation support
+- Focus states
+- ARIA-compliant navigation
+
+#### Responsive Design
+- Works on all screen sizes
+- Touch-friendly on mobile
+- Flexible spacing
+
+### Integration with Other Components
+
+#### With SearchableSelect
+```tsx
+<div className="space-y-6">
+  <NavTabs
+    items={mainTabs}
+    activeTab={activeTab}
+    onTabChange={setActiveTab}
+  />
+  
+  {activeTab === "inventory" && (
+    <SearchableSelect
+      value={selectedItem}
+      onChange={setSelectedItem}
+      options={inventoryOptions}
+      placeholder="Search inventory..."
+    />
+  )}
+</div>
+```
+
+#### In Dashboard Layouts
+```tsx
+<Layout>
+  <div className="space-y-6">
+    <div>
+      <h1>Inventory Management</h1>
+      <p>Manage your restaurant inventory</p>
+    </div>
+    
+    <NavTabs
+      items={inventoryTabs}
+      activeTab={activeTab}
+      onTabChange={setActiveTab}
+    />
+    
+    <div className="mt-6">
+      {renderTabContent()}
+    </div>
+  </div>
+</Layout>
+```
+
+### Browser Support
+
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- Mobile responsive
+- Touch-friendly interactions
+- Smooth transitions and animations
+
+The NavItem component perfectly recreates the navigation experience from your box-dashboard project!
