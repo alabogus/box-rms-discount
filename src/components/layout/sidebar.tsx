@@ -62,10 +62,10 @@ const navigationItems: NavigationItem[] = [
     disabled: true,
   },
   {
-    id: "components",
-    label: "Components",
-    href: "/components",
-    icon: Layers,
+    id: "getting-started",
+    label: "Getting Started",
+    href: "/getting-started",
+    icon: BookOpen,
     badge: "NEW",
   },
   {
@@ -123,13 +123,6 @@ const navigationItems: NavigationItem[] = [
     href: "/activity",
     icon: Activity,
     disabled: true,
-  },
-  {
-    id: "getting-started",
-    label: "Getting Started",
-    href: "/getting-started",
-    icon: BookOpen,
-    badge: "NEW",
   },
 ];
 
