@@ -75,11 +75,10 @@ const navigationItems: NavigationItem[] = [
     badge: "NEW",
   },
   {
-    id: "menu-manager",
-    label: "Menu manager",
-    href: "/menu-manager",
+    id: "discounts",
+    label: "Discounts",
+    href: "/discounts",
     icon: FileText,
-    disabled: true,
   },
   {
     id: "inventory",
