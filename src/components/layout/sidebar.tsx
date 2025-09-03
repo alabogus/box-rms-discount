@@ -79,7 +79,6 @@ const navigationItems: NavigationItem[] = [
     label: "Menu manager",
     href: "/menu-manager",
     icon: FileText,
-    disabled: true,
   },
   {
     id: "inventory",
