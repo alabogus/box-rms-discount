@@ -10,9 +10,10 @@ import { Menu } from "lucide-react";
 interface LayoutProps {
   children: React.ReactNode;
   className?: string;
+  hasTopNav?: boolean;
 }
 
-export function Layout({ children, className }: LayoutProps) {
+export function Layout({ children, className, hasTopNav = false }: LayoutProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
@@ -54,7 +55,7 @@ export function Layout({ children, className }: LayoutProps) {
         <main 
           className={cn(
             "flex-1 overflow-auto",
-            layout.content.padding,
+            hasTopNav ? layout.content.paddingWithNav : layout.content.padding,
             className
           )}
         >

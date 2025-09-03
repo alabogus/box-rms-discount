@@ -117,7 +117,8 @@ export const layout = {
     collapsed: 'w-16',
   },
   content: {
-    padding: 'p-6',
+    padding: 'px-6 pb-6',
+    paddingWithNav: 'px-6 pt-0 pb-6', // No top padding when there's top navigation
     maxWidth: 'max-w-7xl mx-auto',
   },
   header: {
