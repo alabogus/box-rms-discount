@@ -112,7 +112,7 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
           )}
         >
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="text-muted-foreground ml-1">*</span>}
         </Label>
         {renderInput()}
         {error && (
