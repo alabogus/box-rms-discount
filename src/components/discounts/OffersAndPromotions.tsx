@@ -182,10 +182,12 @@ export function OffersAndPromotions({ discounts, setDiscounts }: OffersAndPromot
                     ).join(", ") || "All roles"}
               </TableCell>
               <TableCell>
-                {discount.validityPeriod ? (
+                {discount.validityPeriod?.from && discount.validityPeriod?.to ? (
                   <div className="text-sm">
-                    <div>{format(discount.validityPeriod.from, "MMM dd, yyyy")}</div>
-                    <div className="text-muted-foreground">to {format(discount.validityPeriod.to, "MMM dd, yyyy")}</div>
+                    <div>{format(new Date(discount.validityPeriod.from), "MMM dd, yyyy")}</div>
+                    <div className="text-muted-foreground">
+                      to {format(new Date(discount.validityPeriod.to), "MMM dd, yyyy")}
+                    </div>
                   </div>
                 ) : discount.schedule?.daySchedules ? (
                   <div className="text-sm space-y-1">
@@ -484,8 +486,8 @@ export function OffersAndPromotions({ discounts, setDiscounts }: OffersAndPromot
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
                       <span>
-                        {currentDiscount.validityPeriod ? 
-                          `${format(currentDiscount.validityPeriod.from, "MMM dd, yyyy")} - ${format(currentDiscount.validityPeriod.to, "MMM dd, yyyy")}` :
+                        {currentDiscount.validityPeriod?.from && currentDiscount.validityPeriod?.to ? 
+                          `${format(new Date(currentDiscount.validityPeriod.from), "MMM dd, yyyy")} - ${format(new Date(currentDiscount.validityPeriod.to), "MMM dd, yyyy")}` :
                           "Select date range"
                         }
                       </span>
@@ -494,9 +496,9 @@ export function OffersAndPromotions({ discounts, setDiscounts }: OffersAndPromot
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="range"
-                      selected={currentDiscount.validityPeriod ? {
-                        from: currentDiscount.validityPeriod.from,
-                        to: currentDiscount.validityPeriod.to
+                      selected={currentDiscount.validityPeriod?.from && currentDiscount.validityPeriod?.to ? {
+                        from: new Date(currentDiscount.validityPeriod.from),
+                        to: new Date(currentDiscount.validityPeriod.to)
                       } : undefined}
                       onSelect={(dateRange: DateRange | undefined) => {
                         setCurrentDiscount(prev => prev ? {
@@ -563,13 +565,14 @@ export function OffersAndPromotions({ discounts, setDiscounts }: OffersAndPromot
         open={isComplexSchedulingOpen}
         onOpenChange={setIsComplexSchedulingOpen}
         daySchedules={currentDiscount?.schedule?.daySchedules || []}
-        onSave={(daySchedules) => {
+        onSave={(scheduleData) => {
           setCurrentDiscount(prev => prev ? {
             ...prev,
             schedule: {
               type: 'recurring',
-              daySchedules
-            }
+              daySchedules: scheduleData.daySchedules
+            },
+            validityPeriod: scheduleData.validityPeriod
           } : null)
         }}
       />
@@ -580,7 +583,7 @@ export function OffersAndPromotions({ discounts, setDiscounts }: OffersAndPromot
           <DialogHeader>
             <DialogTitle>Delete offer?</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete the offer "{discountToDelete?.name}"? This action cannot be undone.
+              Are you sure you want to delete the offer &quot;{discountToDelete?.name}&quot;? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

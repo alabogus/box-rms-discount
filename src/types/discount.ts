@@ -1,3 +1,8 @@
+export interface DateRange {
+  from?: Date;
+  to?: Date;
+}
+
 export interface Discount {
   id: string;
   name: string;
@@ -7,10 +12,8 @@ export interface Discount {
   maxAmount?: number;
   allowedRoles?: string[];
   type: 'simple' | 'event' | 'complex';
-  validityPeriod?: {
-    from: Date;
-    to: Date;
-  };
+  description?: string;
+  validityPeriod?: DateRange;
   schedule?: DiscountSchedule;
 }
 

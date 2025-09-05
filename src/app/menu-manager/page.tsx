@@ -20,16 +20,16 @@ import { StatusBadge } from "@/components/ui/status-badge";
 export default function MenuManagerPage() {
   const [activeTab, setActiveTab] = useState("overview");
   const [discounts, setDiscounts] = useState<Discount[]>([
-    { id: "1", name: "Small Discount", percentage: 5, description: "Small discount", isActive: true },
-    { id: "2", name: "Popular Choice", percentage: 10, description: "Popular choice", isActive: true },
-    { id: "3", name: "Special Offer", percentage: 15, description: "Special offer", isActive: true },
-    { id: "4", name: "VIP Discount", percentage: 20, description: "For VIP customers", isActive: false }
+    { id: "1", name: "Small Discount", percentage: 5, description: "Small discount", type: 'simple', isActive: true },
+    { id: "2", name: "Popular Choice", percentage: 10, description: "Popular choice", type: 'simple', isActive: true },
+    { id: "3", name: "Special Offer", percentage: 15, description: "Special offer", type: 'simple', isActive: true },
+    { id: "4", name: "VIP Discount", percentage: 20, description: "For VIP customers", type: 'simple', isActive: false }
   ]);
   
   const [discountRoleLimits, setDiscountRoleLimits] = useState<DiscountLimit[]>([
-    { roleId: "1", roleName: "Waiter", maxPercentage: 25 },
-    { roleId: "2", roleName: "Manager", maxPercentage: 50 },
-    { roleId: "3", roleName: "Admin", maxPercentage: 100 }
+    { roleId: "1", roleName: "Waiter", maxPercentage: 25, maxAmount: 100 },
+    { roleId: "2", roleName: "Manager", maxPercentage: 50, maxAmount: 200 },
+    { roleId: "3", roleName: "Admin", maxPercentage: 100, maxAmount: 500 }
   ]);
   
   const [isDiscountSheetOpen, setIsDiscountSheetOpen] = useState(false);
@@ -212,7 +212,8 @@ export default function MenuManagerPage() {
       name: "",
       percentage: 0,
       description: "",
-      isActive: true
+      isActive: true,
+      type: 'simple'
     });
     setIsEditMode(false);
     setIsDiscountSheetOpen(true);
