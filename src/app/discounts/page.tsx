@@ -18,6 +18,7 @@ export default function DiscountsPage() {
       promoCode: "",
       maxAmount: undefined,
       allowedRoles: [],
+      type: 'simple',
       validityPeriod: undefined
     },
     { 
@@ -28,6 +29,7 @@ export default function DiscountsPage() {
       promoCode: "",
       maxAmount: undefined,
       allowedRoles: [],
+      type: 'simple',
       validityPeriod: undefined
     },
     { 
@@ -38,6 +40,7 @@ export default function DiscountsPage() {
       promoCode: "",
       maxAmount: undefined,
       allowedRoles: [],
+      type: 'simple',
       validityPeriod: undefined
     },
     { 
@@ -48,6 +51,7 @@ export default function DiscountsPage() {
       promoCode: "",
       maxAmount: undefined,
       allowedRoles: [],
+      type: 'simple',
       validityPeriod: undefined
     }
   ]);

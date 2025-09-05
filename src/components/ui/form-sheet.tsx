@@ -60,7 +60,7 @@ export function FormSheet({
       >
         <form onSubmit={handleSubmit} className="flex flex-col h-full">
           {/* Header */}
-          <div className="px-6 flex-1">
+          <div className="px-6 flex-shrink-0">
             <SheetHeader className="pl-0 text-left">
               <SheetTitle className="text-xl font-semibold text-gray-900">
                 {title}
@@ -73,15 +73,17 @@ export function FormSheet({
             </SheetHeader>
             
             <Separator className="my-6" />
-            
-            {/* Form Content */}
-            <div className="space-y-6 mt-6">
+          </div>
+
+          {/* Scrollable Form Content */}
+          <div className="flex-1 overflow-y-auto px-6">
+            <div className="space-y-6">
               {children}
             </div>
           </div>
 
-          {/* Footer Actions */}
-          <div className={patterns.form.actions}>
+          {/* Fixed Footer Actions */}
+          <div className={cn(patterns.form.actions, "flex-shrink-0 border-t bg-white")}>
             <Button 
               type="button"
               variant="outline" 

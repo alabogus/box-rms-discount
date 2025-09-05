@@ -47,7 +47,8 @@ import { format } from "date-fns";
 import { type DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { Edit, MoreHorizontal, Plus, HelpCircle, ChevronDown, X, CalendarIcon, Trash2, Check } from "lucide-react";
-import { Discount } from "@/types/discount";
+import { Discount, DiscountLimit, DiscountSchedule, TimeSlot } from "@/types/discount";
+import { ComplexSchedulingModal } from "./ComplexSchedulingModal";
 
 interface OffersAndPromotionsProps {
   discounts: Discount[];
@@ -58,6 +59,7 @@ export function OffersAndPromotions({ discounts, setDiscounts }: OffersAndPromot
   const [isDiscountSheetOpen, setIsDiscountSheetOpen] = useState(false);
   const [currentDiscount, setCurrentDiscount] = useState<Discount | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isComplexSchedulingOpen, setIsComplexSchedulingOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [discountToDelete, setDiscountToDelete] = useState<Discount | null>(null);
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
@@ -72,7 +74,9 @@ export function OffersAndPromotions({ discounts, setDiscounts }: OffersAndPromot
       promoCode: "",
       maxAmount: undefined,
       allowedRoles: [],
-      validityPeriod: undefined
+      type: 'simple',
+      validityPeriod: undefined,
+      schedule: undefined
     });
     setIsEditMode(false);
     setIsDiscountSheetOpen(true);
@@ -183,8 +187,19 @@ export function OffersAndPromotions({ discounts, setDiscounts }: OffersAndPromot
                     <div>{format(discount.validityPeriod.from, "MMM dd, yyyy")}</div>
                     <div className="text-muted-foreground">to {format(discount.validityPeriod.to, "MMM dd, yyyy")}</div>
                   </div>
+                ) : discount.schedule?.daySchedules ? (
+                  <div className="text-sm space-y-1">
+                    <div className="font-medium text-blue-600">Scheduled</div>
+                    {discount.schedule.daySchedules.filter(d => d.enabled).map((daySchedule) => (
+                      <div key={daySchedule.dayOfWeek} className="text-xs text-muted-foreground">
+                        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][daySchedule.dayOfWeek]}: {
+                          daySchedule.timeSlots.map(slot => `${slot.startTime}-${slot.endTime}`).join(', ')
+                        }
+                      </div>
+                    ))}
+                  </div>
                 ) : (
-                  <span className="text-muted-foreground">No expiry</span>
+                  <span className="text-muted-foreground text-sm">No expiry</span>
                 )}
               </TableCell>
               <TableCell>
@@ -415,49 +430,118 @@ export function OffersAndPromotions({ discounts, setDiscounts }: OffersAndPromot
             <p className="text-sm text-muted-foreground">Only the selected user roles will be able to use this offer</p>
           </div>
           
-          <div className="space-y-2">
-            <Label htmlFor="discount-validity">Validity period</Label>
-            <Popover>
-              <PopoverTrigger asChild>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="discount-type">Discount Type</Label>
+              <select
+                id="discount-type"
+                value={currentDiscount?.type || 'simple'}
+                onChange={(e) => {
+                  const type = e.target.value as 'simple' | 'event' | 'complex';
+                  setCurrentDiscount(prev => prev ? {
+                    ...prev,
+                    type,
+                    validityPeriod: type === 'event' ? {
+                      from: new Date(),
+                      to: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+                    } : undefined,
+                    schedule: type === 'complex' ? {
+                      type: 'recurring',
+                      daySchedules: [{
+                        dayOfWeek: 1,
+                        enabled: true,
+                        timeSlots: [{
+                          id: '1',
+                          startTime: '07:00',
+                          endTime: '10:00'
+                        }]
+                      }]
+                    } : undefined
+                  } : null)
+                }}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+              >
+                <option value="simple">Simple (Runs forever)</option>
+                <option value="event">Event (Date range)</option>
+                <option value="complex">Complex (Advanced scheduling)</option>
+              </select>
+              <p className="text-xs text-muted-foreground">
+                {currentDiscount?.type === 'simple' && "Discount will be active permanently"}
+                {currentDiscount?.type === 'event' && "Discount will be active for a specific date range"}
+                {currentDiscount?.type === 'complex' && "Discount will be active on specific days and times"}
+              </p>
+            </div>
+            
+            {currentDiscount?.type === 'event' && (
+              <div className="space-y-2 pl-6 border-l-2 border-gray-100">
+                <Label htmlFor="discount-validity">Date range</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      id="discount-validity"
+                      variant="outline"
+                      className="w-full justify-start text-left font-normal"
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      <span>
+                        {currentDiscount.validityPeriod ? 
+                          `${format(currentDiscount.validityPeriod.from, "MMM dd, yyyy")} - ${format(currentDiscount.validityPeriod.to, "MMM dd, yyyy")}` :
+                          "Select date range"
+                        }
+                      </span>
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="range"
+                      selected={currentDiscount.validityPeriod ? {
+                        from: currentDiscount.validityPeriod.from,
+                        to: currentDiscount.validityPeriod.to
+                      } : undefined}
+                      onSelect={(dateRange: DateRange | undefined) => {
+                        setCurrentDiscount(prev => prev ? {
+                          ...prev,
+                          validityPeriod: dateRange && dateRange.from && dateRange.to ? {
+                            from: dateRange.from,
+                            to: dateRange.to
+                          } : undefined
+                        } : null)
+                      }}
+                      numberOfMonths={2}
+                      className="rounded-lg"
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+            )}
+            
+            {currentDiscount?.type === 'complex' && (
+              <div className="space-y-2 pl-6 border-l-2 border-blue-100">
+                <Label>Advanced Scheduling</Label>
                 <Button
-                  id="discount-validity"
+                  type="button"
                   variant="outline"
-                  className={cn(
-                    "w-full justify-start text-left font-normal",
-                    !currentDiscount?.validityPeriod && "text-muted-foreground"
-                  )}
+                  onClick={() => setIsComplexSchedulingOpen(true)}
+                  className="w-full justify-start"
                 >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {currentDiscount?.validityPeriod ? (
-                    <span>
-                      {format(currentDiscount.validityPeriod.from, "MMM dd, yyyy")} - {format(currentDiscount.validityPeriod.to, "MMM dd, yyyy")}
-                    </span>
-                  ) : (
-                    <span>Select date range</span>
-                  )}
+                  {currentDiscount.schedule?.daySchedules?.length ? 
+                    `${currentDiscount.schedule.daySchedules.filter(d => d.enabled).length} day(s) configured` :
+                    "Configure scheduling"
+                  }
                 </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  mode="range"
-                  selected={currentDiscount?.validityPeriod ? {
-                    from: currentDiscount.validityPeriod.from,
-                    to: currentDiscount.validityPeriod.to
-                  } : undefined}
-                  onSelect={(dateRange: DateRange | undefined) => {
-                    setCurrentDiscount(prev => prev ? {
-                      ...prev,
-                      validityPeriod: dateRange && dateRange.from && dateRange.to ? {
-                        from: dateRange.from,
-                        to: dateRange.to
-                      } : undefined
-                    } : null)
-                  }}
-                  numberOfMonths={2}
-                  className="rounded-lg"
-                />
-              </PopoverContent>
-            </Popover>
+                {currentDiscount.schedule?.daySchedules?.length && (
+                  <div className="text-xs text-muted-foreground space-y-1">
+                    {currentDiscount.schedule.daySchedules.filter(d => d.enabled).map((daySchedule) => (
+                      <div key={daySchedule.dayOfWeek}>
+                        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][daySchedule.dayOfWeek]}: {
+                          daySchedule.timeSlots.map(slot => `${slot.startTime}-${slot.endTime}`).join(', ')
+                        }
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           
           <div className="flex items-center space-x-2">
@@ -473,6 +557,22 @@ export function OffersAndPromotions({ discounts, setDiscounts }: OffersAndPromot
           </div>
         </div>
       </FormSheet>
+
+      {/* Complex Scheduling Modal */}
+      <ComplexSchedulingModal
+        open={isComplexSchedulingOpen}
+        onOpenChange={setIsComplexSchedulingOpen}
+        daySchedules={currentDiscount?.schedule?.daySchedules || []}
+        onSave={(daySchedules) => {
+          setCurrentDiscount(prev => prev ? {
+            ...prev,
+            schedule: {
+              type: 'recurring',
+              daySchedules
+            }
+          } : null)
+        }}
+      />
       
       {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
